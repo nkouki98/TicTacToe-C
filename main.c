@@ -13,41 +13,42 @@ int userInput();
 int main(){
 
    
-   int grid[3][3];
+   int grid[3][3] = {'1','2','3','4','5','6','7','8','9'};
    int i,j,c;
    char str[10];
    int counter=1;
-   int num;
+   char num;
    
-   for(i=0;i<3;i++)
-   {    
-       for(j=0;j<3;j++){
-           grid[i][j] = counter;
-           printf("grid[%d][%d] = %d\n", i,j, grid[i][j] );   
-           counter++;
-       }
-   }
+   //for(i=0;i<3;i++)
+   //{    
+     //  for(j=0;j<3;j++){
+       //    grid[i][j] = counter;
+         //  printf("grid[%d][%d] = %d\n", i,j, grid[i][j] );   
+           //counter++;
+       //}
+   //}
 
+   while(1){
+
+   
    displayBoard(grid);
    num = userInput();
-   char cnum = num;
-   printf("char is %d\n", cnum);
-   printf("%d\n", num);
+   
+   printf("char is %c\n", num);
+   printf("%c\n", num);
  
     for(i=0;i<3;i++)
    {    
-       for(j=0;j<3;j++){
-   
-           if(grid[i][j] == num)
-            grid[i][j] = 'X';
-            printf("grid[%d][%d] = %d\n", i,j, grid[i][j] ); 
-             
-      
-       }
+      for(j=0;j<3;j++){
+        if(grid[i][j] == num)
+        grid[i][j] = 'X';
+        printf("grid[%d][%d] = %d\n", i,j, grid[i][j] ); 
+      }
    }
 
 
-   displayInput(grid);
+   displayBoard(grid);
+   }
    return 0;
 
     
@@ -58,42 +59,19 @@ int main(){
 
 int userInput(){
     
-   int x;
+   char x;
    printf("Enter number: ");
-   scanf("%d", &x);
-   printf("Number is %d \n", x);
+   scanf("%c", &x);
+   printf("Number is %c \n", x);
    return x;
 }
 
 
 
+
+
+
 void displayBoard(int grid[3][3]){
-
-   printf("\n\n\tTic Tac Toe\n\n");
-
-
-
-   printf("     |     |     \n");
-   printf(" %d   |  %d  |  %d   \n", grid[0][0], grid[0][1], grid[0][2]);
-
-
-   
-
-   printf("_____|_____|_____\n");
-   printf("     |     |     \n");
-
-   printf(" %d   |  %d  |  %d   \n", grid[1][0], grid[1][1], grid[1][2]);
-
- 
-   printf("_____|_____|_____\n");
-   printf("     |     |     \n");
-    
-   printf(" %d   |  %d  |  %d   \n", grid[2][0], grid[2][1], grid[2][2]);
-   printf("     |     |     \n\n");
-}
-
-
-void displayInput(int grid[3][3]){
 
    printf("\n\n\tTic Tac Toe\n\n");
 
