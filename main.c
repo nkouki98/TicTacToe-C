@@ -6,7 +6,7 @@
 
 void displayBoard(int grid[3][3]);
 void displayInput(int grid[3][3]);
-
+int checkforWin(int grid[3][3]);
 int userInput();
 
 
@@ -14,8 +14,7 @@ int main(){
 
    
    int grid[3][3] = {'1','2','3','4','5','6','7','8','9'};
-   int i,j,c;
-   char str[10];
+   int i,j,c, win;
    int counter=1;
    char num;
    
@@ -48,6 +47,13 @@ int main(){
 
 
    displayBoard(grid);
+
+   win = checkforWin(grid);
+   printf( "win %d\n", win ); 
+
+   if (win == 1)
+      break;
+
    }
    return 0;
 
@@ -67,6 +73,24 @@ int userInput(){
 }
 
 
+
+int checkforWin(int grid[3][3]){
+
+   if (grid[0][0] && grid[0][1] && grid[0][2] == grid[0][0])
+      return 1;
+   else if (grid[1][0] && grid[1][1] && grid[1][2] == grid[0][0])
+      return 1;
+   else if (grid[2][0] && grid[2][1] && grid[2][2] == grid[0][0])
+      return 1;
+   else if (grid[0][0] && grid[1][1] && grid[2][2] == grid[0][0])
+      return 1;
+   else if (grid[0][0] && grid[1][0] && grid[2][0] == grid[0][0])
+      return 1;   
+   else if (grid[0][1] && grid[1][1] && grid[2][1] == grid[0][1])
+      return 1;  
+ 
+
+}
 
 
 
