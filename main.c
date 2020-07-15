@@ -29,18 +29,17 @@ int main(){
 
    while(1){
 
-   
    displayBoard(grid);
-   num = userInput();
+   player = userInput();
    
-   printf("char is %c\n", num);
-   printf("%c\n", num);
+   printf("char is %c\n", player);
+   printf("%c\n", player);
  
     for(i=0;i<3;i++)
    {    
       for(j=0;j<3;j++){
-        if(grid[i][j] == num)
-        grid[i][j] = 'X';
+        if(grid[i][j] == player)
+        grid[i][j] = 'O';
         printf("grid[%d][%d] = %d\n", i,j, grid[i][j] ); 
       }
    }
@@ -62,6 +61,9 @@ int main(){
 }
 
 
+int minimax(int grid[3][3], maxPlayer){
+   return 0;
+}
 
 int userInput(){
     
@@ -88,9 +90,17 @@ int checkforWin(int grid[3][3]){
       return 1;   
    else if (grid[0][1] && grid[1][1] && grid[2][1] == grid[0][1])
       return 1;  
- 
+   else if (grid[0][1] && grid[1][1] && grid[2][1] == grid[0][1])
+      return 1; 
+   
 
 }
+
+
+
+
+
+
 
 
 
