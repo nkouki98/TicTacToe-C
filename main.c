@@ -24,67 +24,69 @@ int main(){
 int runGame(){
 
    
-   int grid[10] ={'s' , '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-   int i,j,c, win;
-   int counter=1;
-   int player;
+   int grid[10] ={'s' , '1', 'X', 'X', 'X', 'O', 'O', 'X', 'O', 'X'};
+   int i,j,c,win, temp;
+   int player, computer;
    bool b;
 
    while(1){
       
       displayBoard(grid);
+  
       b = boardEmpty(grid);
-      printf("b=%d\n", b);
-      
-      printf("PLAYER INPUT: ");
-      player = playerInput();
-      
-      
-      for(i=1;i<10;i++)
-      {    
-         if(i == player)
-            grid[i] = 'O';
-        
-      
-      }
+      printf("PLAYER BOOL b=%d\n", b);
 
-      displayBoard(grid);
-      win = checkforWin(grid);
-      
-      if (win == 1)
+
+
+      if((temp=checkforWin(grid))==1)
          break;
-
-      
-      printf("b=%d\n", b);
-      
-      char computer = computerInput(1,10);   
-      printf("COMP INPUT %d\n", computer);
-      for(i=1;i<10;i++)
-      {    
-      
-         if(i == computer)
-            grid[i] = 'X';
-    
-      
+      else if(b==1){
+         printf("PLAYER INPUT: ");
+         player = playerInput();
+         for(i=1;i<10;i++){    
+            if(i == player)
+               grid[i] = 'O';
+            
+         }
+         displayBoard(grid);
       }
-      
-      displayBoard(grid);
-      win = checkforWin(grid);
-
-      printf("b=%d\n", b);
-      if (win == 1)  
+      else{ 
+         printf("TIE\n");
          break;
-
-   
       }
+         
+      //win = checkforWin(grid);
+     // if (win == 1)
+       //  break;
 
-      printf( "win %d\n", win ); 
+     
+      
       b = boardEmpty(grid);
-      printf("b=%d\n", b);
-   
-   
-   
+      printf("COMP BOOl b=%d\n", b);
+      
 
+      if((temp=checkforWin(grid))==1)
+         break;
+      else if(b==1){
+         computer = computerInput(1,10);   
+         printf("COMP INPUT %d\n", computer);
+         for(i=1;i<10;i++){   
+            if(i == computer)
+               grid[i] = 'X';
+         }
+         displayBoard(grid);
+      }
+      else{  
+         printf("TIE\n");
+         break;
+      }
+     
+         
+      }
+      win = checkforWin(grid);
+      printf("win %d\n", win); 
+      b = boardEmpty(grid);
+      printf("this b=%d\n", b);
    
       return 0;
 
@@ -132,8 +134,7 @@ bool boardEmpty(int grid[10]){
         != '7' && grid[8] != '8' && grid[9] != '9')
         return 0;
    else
-   
-         return 1;
+      return 1;
    
    
       
