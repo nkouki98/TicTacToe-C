@@ -2,15 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> 
+#include <stdbool.h>
 
 
-void displayBoard(int grid[3][3]);
-void displayInput(int grid[3][3]);
-int checkforWin(int grid[3][3]);
+void displayBoard(int grid[10]);
+void displayInput(int grid[10]);
+int checkforWin(int grid[10]);
 int playerInput();
 int computerInput(int low, int high);
 int runGame();
-
+bool boardEmpty(int grid[10]);
 
 
 int main(){
@@ -23,125 +24,150 @@ int main(){
 int runGame(){
 
    
-   int grid[3][3] = {'1','2','3','4','5','6','7','8','9'};
+   int grid[10] ={'s' , '1', '2', '3', '4', '5', '6', '7', '8', '9'};
    int i,j,c, win;
    int counter=1;
-   char player;
+   int player;
+   bool b;
 
-   displayBoard(grid);
    while(1){
-
-   
-   printf("PLAYER INPUT: ");
-   player = playerInput();
-   
-   
-   for(i=0;i<3;i++)
-   {    
-      for(j=0;j<3;j++)
-      {
-        if(grid[i][j] == player)
-        grid[i][j] = 'O';
-        //printf("grid[%d][%d] = %d\n", i,j, grid[i][j]); 
+      
+      displayBoard(grid);
+      b = boardEmpty(grid);
+      printf("b=%d\n", b);
+      
+      printf("PLAYER INPUT: ");
+      player = playerInput();
+      
+      
+      for(i=1;i<10;i++)
+      {    
+         if(i == player)
+            grid[i] = 'O';
+        
+      
       }
-   }
 
-   displayBoard(grid);
-   win = checkforWin(grid);
-   
-   if (win == 1)
-      break;
+      displayBoard(grid);
+      win = checkforWin(grid);
+      
+      if (win == 1)
+         break;
 
-
-   
-   char computer = computerInput(0,8);   
-   printf("COMP INPUT %c", computer);
-   for(i=0;i<3;i++)
-   {    
-      for(j=0;j<3;j++)
-      {
-        if(grid[i][j] == computer)
-        grid[i][j] = 'X';
-        //printf("grid[%d][%d] = %d\n", i,j, grid[i][j]); 
-      }
-   }
-   
-   displayBoard(grid);
-   win = checkforWin(grid);
-   
-   if (win == 1)
-      break;
-   
-   }
-
-   printf( "win %d\n", win ); 
-   
-  
-  
-  
- 
-
-  
-   return 0;
-
+      
+      printf("b=%d\n", b);
+      
+      char computer = computerInput(1,10);   
+      printf("COMP INPUT %d\n", computer);
+      for(i=1;i<10;i++)
+      {    
+      
+         if(i == computer)
+            grid[i] = 'X';
     
+      
+      }
+      
+      displayBoard(grid);
+      win = checkforWin(grid);
+
+      printf("b=%d\n", b);
+      if (win == 1)  
+         break;
+
+   
+      }
+
+      printf( "win %d\n", win ); 
+      b = boardEmpty(grid);
+      printf("b=%d\n", b);
+   
+   
+   
+
+   
+      return 0;
+
+      
     
 }
+
+
+
+
+
+
+
 
 
 
 int computerInput(int low, int high){
  
+   int num;   
+   num = (rand() % (high - low + 1)) + low;
+   return num;
+
+}
 
   
-   int num;
-   
-   int range[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-   num = (rand() % (high - low + 1)) + low;
-   return range[num];
-}
-   //printf("from array %c", range[num]);
    
 
 
 int playerInput(){
     
-   char x;
+   int x;
   // printf("Enter number: ");
-   scanf("%c%*c", &x);
-   //printf("Number is %c \n", x);
+   scanf("%d", &x);
    return x;
 
 }
 
+bool boardEmpty(int grid[10]){
+   
+  
+   int i;
 
+   if (grid[1] != '1' && grid[2] != '2' && grid[3] != '3' &&
+        grid[4] != '4' && grid[5] != '5' && grid[6] != '6' && grid[7] 
+        != '7' && grid[8] != '8' && grid[9] != '9')
+        return 0;
+   else
+   
+         return 1;
+   
+   
+      
+    
+   
+  
+}
 
-int checkforWin(int grid[3][3]){
+int checkforWin(int grid[10]){
 
 
    //Horizontal 
-   if (grid[0][0] == grid[0][1] && grid[0][2] == grid[0][0])
+   if (grid[1] == grid[2] && grid[2] == grid[3])
       return 1;
-   else if(grid[1][0] == grid[1][1] && grid[1][2] == grid[1][0])
+   else if(grid[4] == grid[5] && grid[5] == grid[6])
       return 1;
-   else if(grid[2][0] == grid[2][1] && grid[2][2] == grid[2][0])
+   else if(grid[7] == grid[8] && grid[8] == grid[9])
       return 1;
 
 
 
    //Vertical
-   else if (grid[0][0] == grid[1][0] && grid[2][0] == grid[0][0])
+   else if (grid[1] == grid[4] && grid[4] == grid[7])
       return 1;
-   else if(grid[0][1] == grid[1][1] && grid[2][1] == grid[0][1])
+   else if(grid[2] == grid[5] && grid[5] == grid[8])
       return 1;
-   else if(grid[0][2] == grid[1][2] && grid[2][2] == grid[0][2])
+   else if(grid[3] == grid[6] && grid[6] == grid[9])
       return 1;
 
 
    //Diagonals
-   else if (grid[0][0] == grid[1][1] && grid[2][2] == grid[0][0])
+   else if (grid[1] == grid[5] && grid[5] == grid[9])
       return 1;
-   else if(grid[0][2] == grid[1][1] && grid[2][0] == grid[0][2])
+   else if(grid[3] == grid[5] && grid[5] == grid[7])
       return 1;
    
    else 
@@ -153,18 +179,18 @@ int checkforWin(int grid[3][3]){
 
 
 
-void displayBoard(int grid[3][3]){
+void displayBoard(int grid[10]){
 
 
    printf("\n\n\tTic Tac Toe\n\n");
    printf("     |     |     \n");
-   printf(" %c   |  %c  |  %c   \n", grid[0][0], grid[0][1], grid[0][2]);
+   printf(" %c   |  %c  |  %c   \n", grid[1], grid[2], grid[3]);
    printf("_____|_____|_____\n");
    printf("     |     |     \n");
-   printf(" %c   |  %c  |  %c   \n", grid[1][0], grid[1][1], grid[1][2]);
+   printf(" %c   |  %c  |  %c   \n", grid[4], grid[5], grid[6]);
    printf("_____|_____|_____\n");
    printf("     |     |     \n"); 
-   printf(" %c   |  %c  |  %c   \n", grid[2][0], grid[2][1], grid[2][2]);
+   printf(" %c   |  %c  |  %c   \n", grid[7], grid[8], grid[9]);
    printf("     |     |     \n\n");
 
 
