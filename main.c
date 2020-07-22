@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h> 
 #include <stdbool.h>
+#include <math.h>
 
 
 void displayBoard(int grid[10]);
@@ -12,6 +13,11 @@ int playerInput();
 int computerInput(int low, int high);
 int runGame();
 bool boardEmpty(int grid[10]);
+int max(int num1, int num2);
+int min(int num1, int num2);
+
+int computerMove(int grid[10]);
+int minimax(int grid[10]);
 
 
 int main(){
@@ -24,7 +30,7 @@ int main(){
 int runGame(){
 
    
-   int grid[10] ={'s' , '1', 'X', 'X', 'X', 'O', 'O', 'X', 'O', 'X'};
+   int grid[10] ={'s' , ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
    int i,j,c,win, temp;
    int player, computer;
    bool b;
@@ -68,7 +74,7 @@ int runGame(){
       if((temp=checkforWin(grid))==1)
          break;
       else if(b==1){
-         computer = computerInput(1,10);   
+         computer =computerInput(1,10);
          printf("COMP INPUT %d\n", computer);
          for(i=1;i<10;i++){   
             if(i == computer)
@@ -95,11 +101,7 @@ int runGame(){
 }
 
 
-
-
-
-
-
+         
 
 
 
@@ -124,15 +126,16 @@ int playerInput(){
 
 }
 
+
+
 bool boardEmpty(int grid[10]){
    
   
    int i;
-
-   if (grid[1] != '1' && grid[2] != '2' && grid[3] != '3' &&
-        grid[4] != '4' && grid[5] != '5' && grid[6] != '6' && grid[7] 
-        != '7' && grid[8] != '8' && grid[9] != '9')
-        return 0;
+   if (grid[1] != ' ' && grid[2] != ' ' && grid[3] != ' ' &&
+       grid[4] != ' ' && grid[5] != ' ' && grid[6] != ' ' && grid[7] 
+       != ' ' && grid[8] != ' ' && grid[9] != ' ')
+      return 0;
    else
       return 1;
    
@@ -147,30 +150,46 @@ int checkforWin(int grid[10]){
 
 
    //Horizontal 
-   if (grid[1] == grid[2] && grid[2] == grid[3])
+   if (grid[1] == grid[2] && grid[2] == grid[3] && grid[1]=='X')
       return 1;
-   else if(grid[4] == grid[5] && grid[5] == grid[6])
+   else if(grid[4] == grid[5] && grid[5] == grid[6] && grid[4]=='X')
       return 1;
-   else if(grid[7] == grid[8] && grid[8] == grid[9])
+   else if(grid[7] == grid[8] && grid[8] == grid[9] && grid[5]=='X')
       return 1;
 
+   else if (grid[1] == grid[2] && grid[2] == grid[3] && grid[1]=='O')
+      return 1;
+   else if(grid[4] == grid[5] && grid[5] == grid[6] && grid[4]=='O')
+      return 1;
+   else if(grid[7] == grid[8] && grid[8] == grid[9] && grid[7]=='O')
+      return 1;
 
 
    //Vertical
-   else if (grid[1] == grid[4] && grid[4] == grid[7])
+   else if (grid[1] == grid[4] && grid[4] == grid[7] && grid[1]=='X')
       return 1;
-   else if(grid[2] == grid[5] && grid[5] == grid[8])
+   else if(grid[2] == grid[5] && grid[5] == grid[8] && grid[2]=='X')
       return 1;
-   else if(grid[3] == grid[6] && grid[6] == grid[9])
+   else if(grid[3] == grid[6] && grid[6] == grid[9] && grid[3]=='X')
       return 1;
+   else if (grid[1] == grid[4] && grid[4] == grid[7] && grid[1]=='O')
+      return 1;
+   else if(grid[2] == grid[5] && grid[5] == grid[8] && grid[2]=='O')
+      return 1;
+   else if(grid[3] == grid[6] && grid[6] == grid[9] && grid[3]=='O')
+      return 1;
+
 
 
    //Diagonals
-   else if (grid[1] == grid[5] && grid[5] == grid[9])
+   else if (grid[1] == grid[5] && grid[5] == grid[9] && grid[1]=='X')
       return 1;
-   else if(grid[3] == grid[5] && grid[5] == grid[7])
+   else if(grid[3] == grid[5] && grid[5] == grid[7] && grid[3]=='X')
       return 1;
-   
+   else if (grid[1] == grid[5] && grid[5] == grid[9] && grid[1]=='O')
+      return 1;
+   else if(grid[3] == grid[5] && grid[5] == grid[7] && grid[3]=='O')
+      return 1;
    else 
       return 0;
 
@@ -195,4 +214,16 @@ void displayBoard(int grid[10]){
    printf("     |     |     \n\n");
 
 
+}
+
+
+int max(int num1, int num2)
+{
+    return (num1 > num2 ) ? num1 : num2;
+}
+
+
+int min(int num1, int num2) 
+{
+    return (num1 > num2 ) ? num2 : num1;
 }
