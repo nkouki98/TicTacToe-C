@@ -135,38 +135,23 @@ int computerMove(int grid[10]){
 int minimax(int grid[10], int depth, bool isMax)
 {
 
-
-   //displayBoard(grid);
-
-   //printf("ISMAX %d\n", isMax);
    int result = checkforWin(grid);
-   //printf("RESULT no if %d\n", result);
 
-   if(result==2){
-      //printf("RESULT %d\n", result);
-      return 10 - depth;
-   }
-   else if(result==1){
-      //printf("RESULT %d\n", result);
-      return -10 + depth;
-   }
-   else if(boardEmpty(grid)==0)
-   {
-      return 0;
-   } 
+   if(result==2) {return 10 - depth;}
+  
+   else if(result==1) {return -10 + depth;}
+  
+   else if(boardEmpty(grid)==0) {return 0;} 
    
    else if(isMax==1)
    {
-      int bestscore = -1000;
-      //printf("ifmax run then %d", bestscore);     
+      int bestscore = -1000;     
       for(int i=1;i<10;i++)
       {
          if(grid[i] == ' ')
          {
-            //printf("grid %d\n", i);
             grid[i] = 'X';
             int score = minimax(grid, depth+1, false);
-            //printf("this SCORE %d\n", score);
             grid[i] = ' ';
             bestscore = max(score, bestscore);
          }
@@ -176,16 +161,13 @@ int minimax(int grid[10], int depth, bool isMax)
    } 
    else 
    {
-      int bestscore = 1000;
-      //printf("else run then %d\n", bestscore);   
+      int bestscore = 1000; 
       for(int i=1;i<10;i++)
       {
          if(grid[i] == ' ')
          {
-            //printf(" HUmangrid %d\n", i);
             grid[i] = 'O';
             int score = minimax(grid, depth+1, true);
-            //printf("SCORE %d\n", score);
             grid[i] = ' ';
             bestscore = min(score, bestscore);
          }
@@ -199,21 +181,14 @@ int minimax(int grid[10], int depth, bool isMax)
 int playerInput(int grid[10])
 {    
    int x;
-   //printf("Enter number: ");
    scanf("%d", &x);
+   if(grid[x] == ' ') {return x;}
 
-   if(grid[x] == ' ')
-   {
-      return x;
-   } 
-   else
-   {
-      printf("Invalid!, try again.\n");
-      playerInput(grid);      
-   }
+   else { printf("Invalid!, try again.\n");
+         playerInput(grid);}
 
    
-   //return x;
+   
 }
 
 
@@ -278,13 +253,13 @@ void displayBoard(int grid[10]){
 
 }
 
-/*Function to find minimum of x and y*/
+//Function to find minimum of x and y
 int min(int x, int y) 
 { 
 return y ^ ((x ^ y) & -(x < y)); 
 } 
   
-/*Function to find maximum of x and y*/
+//Function to find maximum of x and y
 int max(int x, int y) 
 { 
 return x ^ ((x ^ y) & -(x < y));  
