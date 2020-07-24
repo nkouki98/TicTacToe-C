@@ -6,7 +6,6 @@
 #include <math.h>
 
 void displayBoard(int grid[10]);
-void displayInput(int grid[10]);
 int checkforWin(int grid[10]);
 int playerInput(int grid[10]);
 int runGame();
@@ -38,7 +37,7 @@ int runGame(){
       displayBoard(grid);
   
       b = boardEmpty(grid);
-      printf("PLAYER BOOL b=%d\n", b);
+      printf("Your turn! b=%d\n", b);
 
       if(temp = checkforWin(grid)==1)
       {
@@ -52,7 +51,7 @@ int runGame(){
       }
       else if(b==1)
       {
-         printf("PLAYER INPUT: ");
+         printf("PLAYER INPUT: \n");
          player = playerInput(grid);
          for(i=1;i<10;i++){    
             if(i == player){
@@ -68,7 +67,7 @@ int runGame(){
          
            
       b = boardEmpty(grid);
-      printf("COMP BOOl b=%d\n", b);
+      printf("Computer's turn b=%d\n", b);
       
 
       if(temp = checkforWin(grid)==1)
