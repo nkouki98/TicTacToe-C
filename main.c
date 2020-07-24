@@ -8,7 +8,7 @@
 void displayBoard(int grid[10]);
 void displayInput(int grid[10]);
 int checkforWin(int grid[10]);
-int playerInput();
+int playerInput(int grid[10]);
 int runGame();
 bool boardEmpty(int grid[10]);
 int max(int x, int y);
@@ -40,13 +40,20 @@ int runGame(){
       b = boardEmpty(grid);
       printf("PLAYER BOOL b=%d\n", b);
 
-      if(temp = checkforWin(grid)==1 || checkforWin(grid)==2){
+      if(temp = checkforWin(grid)==1)
+      {
+         printf("You beat the computer!\n");
+         break;
+      }
+      else if(temp = checkforWin(grid)==2)
+      {
+         printf("Computer won!\n");
          break;
       }
       else if(b==1)
       {
          printf("PLAYER INPUT: ");
-         player = playerInput();
+         player = playerInput(grid);
          for(i=1;i<10;i++){    
             if(i == player){
                grid[i] = 'O';
@@ -55,7 +62,7 @@ int runGame(){
          displayBoard(grid);
       }
       else{ 
-         printf("TIE\n");
+         printf("Game tied!\n");
          break;
       }
          
@@ -64,7 +71,14 @@ int runGame(){
       printf("COMP BOOl b=%d\n", b);
       
 
-      if(temp = checkforWin(grid)==1 || checkforWin(grid)==2 ){
+      if(temp = checkforWin(grid)==1)
+      {
+         printf("You beat the computer!\n");
+         break;
+      }
+      else if(temp = checkforWin(grid)==2)
+      {
+         printf("Computer won!\n");
          break;
       }
       else if(b==1)
@@ -80,7 +94,7 @@ int runGame(){
       }
       else
       {  
-         printf("TIE\n");
+         printf("Game tied!\n");
          break;
       }
          
@@ -105,17 +119,11 @@ int computerMove(int grid[10]){
       {
          grid[i] = 'X';
          score = minimax(grid, 0, false);
-         //printf("bestscore %d\n", bestscore);
-         //printf("score %d\n", score);
          grid[i] = ' ';
          if(score > bestscore)
          {
-            printf("BESTCORE %d\n", bestscore);
-            printf("SCORE %d\n", score);
-
             bestscore = score;
             move = i;
-            printf("MOVE %d\n", move );
          }
       }
    }  
@@ -188,12 +196,24 @@ int minimax(int grid[10], int depth, bool isMax)
 }
 
 
-int playerInput()
+int playerInput(int grid[10])
 {    
    int x;
    //printf("Enter number: ");
    scanf("%d", &x);
-   return x;
+
+   if(grid[x] == ' ')
+   {
+      return x;
+   } 
+   else
+   {
+      printf("Invalid!, try again.\n");
+      playerInput(grid);      
+   }
+
+   
+   //return x;
 }
 
 
