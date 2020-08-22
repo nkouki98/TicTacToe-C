@@ -11,7 +11,7 @@ int playerInput(int grid[10]);
 int computerMove(int grid[10]);
 int max(int x, int y);
 int min(int x, int y);
-int minimax(int grid[10], int depth, bool isMax);
+int minimax(int grid[10], int depth, int alpha, int beta, bool isMax);
 
 
 void main(){
@@ -75,7 +75,7 @@ int computerMove(int grid[10]){
    for(int i=1;i<10;i++){ 
       if(grid[i] == ' '){
          grid[i] = 'X';
-         score = minimax(grid, 0, false);
+         score = minimax(grid, 0, -1000, 1000, false);
          grid[i] = ' ';
          if(score > bestscore){
             bestscore = score;
@@ -87,7 +87,7 @@ int computerMove(int grid[10]){
 }
          
 
-int minimax(int grid[10], int depth, bool isMax){
+int minimax(int grid[10], int depth, int alpha, int beta, bool isMax){
 
    int result = checkBoard(grid);
    if(result == computerAi){
@@ -103,20 +103,30 @@ int minimax(int grid[10], int depth, bool isMax){
       for(int i=1;i<10;i++){
          if(grid[i] == ' '){
             grid[i] = 'X';
-            int score = minimax(grid, depth+1, false);
+            int score = minimax(grid, depth + 1, alpha, beta, false);
             grid[i] = ' ';
             bestscore = max(score, bestscore);
+            alpha = max(alpha, score);
+            if(beta <= alpha){
+               break;
+            }
+
          }       
       }
       return bestscore;
+
    } else {
       int bestscore = 1000; 
       for(int i=1;i<10;i++){
          if(grid[i] == ' '){
             grid[i] = 'O';
-            int score = minimax(grid, depth+1, true);
+            int score = minimax(grid, depth + 1, alpha, beta, true);
             grid[i] = ' ';
             bestscore = min(score, bestscore);
+            beta = min(beta, score);
+            if(beta <= alpha){
+               break;
+            }
          }
       }
       return bestscore;
